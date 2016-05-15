@@ -16,7 +16,7 @@ import java.util.UUID
 
 
 object Main {
-  def main(args: Array[String]) = {
+  def main(args: Array[String]) {
     val parser = new scopt.OptionParser[Config]("scopt") {
       head("CSV", "0.1")
 
@@ -36,29 +36,40 @@ object Main {
   }
 
   def begin(config: Config) = {
-    val reader = CSVReader.open(config.input)
 
     config.mode match {
-      case "sync"  => reader foreach { row => handleRowSync(row) }
-      case "future" => reader foreach { row => handleRowAsync(row) }
+      case "sync"  => handleSync(config)
+      case "future" => handleWithFutures(config)
       case "stream" => handleWithStreams(config.input, new File("panda.csv"))
       case "pc" => handleWithParallelCollections(config)
-      case "actor" => handleWithActors(reader)
+      case "actor" => handleWithActors(config)
       case _ => println("ERROR: Unknown mode")
     }
+  }
 
+  def handleWithFutures(config: Config) = {
+    val reader = CSVReader.open(config.input)
+    reader foreach { row => handleRowAsync(row) }
     reader.close()
   }
 
-  def handleWithActors(reader: CSVReader) = {
+  def handleSync(config: Config) = {
+    val linesSource = Source.fromFile(config.input).getLines()
+    linesSource foreach { line =>
+      handleRowSync(line.split(","))
+    }
+  }
+
+  def handleWithActors(config: Config) = {
     val system = ActorSystem("csv-experiment")
     val props = Props[CsvActor]
-
+    val reader = CSVReader.open(config.input)
     reader foreach { row =>
       val name = java.util.UUID.randomUUID.toString
       val handler = system.actorOf(props, name)
       handler ! CsvLine(row)
     }
+    reader.close()
   }
 
   def handleWithParallelCollections(config: Config) = {
