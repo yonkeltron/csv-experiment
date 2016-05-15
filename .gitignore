@@ -1,3 +1,16 @@
 project
 target
 *.csv
+doc/*.aux
+doc/*.fdb_latexmk
+doc/*.fls
+doc/*.log
+doc/*.nav
+doc/*.out
+doc/*.pdf
+doc/*.snm
+doc/*.toc
+doc/*.vrb
+doc/_minted-csv-experiment-slides
+doc/images
+doc/snippets

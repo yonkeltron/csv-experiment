@@ -4,7 +4,6 @@ import akka.actor._
 import akka.stream._
 import akka.stream.scaladsl._
 import akka.util.ByteString
-import com.github.tototoshi.csv._
 import java.io.File
 import scala.annotation.switch
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -48,9 +47,8 @@ object Main {
   }
 
   def handleWithFutures(config: Config) = {
-    val reader = CSVReader.open(config.input)
-    reader foreach { row => handleRowAsync(row) }
-    reader.close()
+    val linesSource = Source.fromFile(config.input).getLines()
+    linesSource foreach { row => handleRowAsync(row) }
   }
 
   def handleSync(config: Config) = {
@@ -98,8 +96,8 @@ object Main {
 
   def handleRowSync(row: Seq[String]) = println(process(row))
 
-  def handleRowAsync(row: Seq[String]) = {
-    Future { process(row) } onComplete {
+  def handleRowAsync(row: String) = {
+    Future { process(row.split(",")) } onComplete {
       case Success(result) => println(result)
       case Failure(e) => e.printStackTrace
     }
