@@ -91,8 +91,6 @@ object Main {
       .intersperse("\n")
       .map(ByteString(_))
       .runWith(FileIO.toFile(to))
-      //.toMat(FileIO.toFile(to))(Keep.right)
-      //.run()
 
     Await.result(r, 5.minutes)
     system.shutdown()
