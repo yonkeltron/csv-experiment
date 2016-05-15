@@ -24,14 +24,14 @@ Using a 5m-row CSV with 100 columns
 156.59s user 76.67s system 188% cpu 2:03.98 total
 ```
 
-### Awk
+<!-- ### Awk -->
 
-#### gawk - GNU Awk 4.1.3, API: 1.1
+<!-- #### gawk - GNU Awk 4.1.3, API: 1.1 -->
 
-26.24s user 0.77s system 99% cpu 27.246 total
+<!-- 26.24s user 0.77s system 99% cpu 27.246 total -->
 
-#### awk - awk version 20070501
+<!-- #### awk - awk version 20070501 -->
 
-48.33s user 0.93s system 99% cpu 49.638 total
+<!-- 48.33s user 0.93s system 99% cpu 49.638 total -->
 
 
