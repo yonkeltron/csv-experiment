@@ -23,9 +23,9 @@ Using a 5m-row CSV with 100 columns
 ==> Akka Actors
 410.06s user 58.95s system 464% cpu 1:41.00 total
 
-==> Scala Parallel collections
-165.46s user 46.78s system 297% cpu 1:11.30 total
-
 ==> Akka Streams
 156.59s user 76.67s system 188% cpu 2:03.98 total
+
+==> Scala Parallel collections
+165.46s user 46.78s system 297% cpu 1:11.30 total
 ```

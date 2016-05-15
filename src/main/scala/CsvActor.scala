@@ -10,5 +10,4 @@ class CsvActor extends Actor {
     }
     case _ => context stop self
   }
-
 }
