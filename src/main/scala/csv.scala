@@ -94,7 +94,8 @@ object Main {
       //.toMat(FileIO.toFile(to))(Keep.right)
       //.run()
 
-    Await.result(r, 1.minutes)
+    Await.result(r, 5.minutes)
+    system.shutdown()
   }
 
   def handleRowSync(row: Seq[String]) = println(process(row))

@@ -8,21 +8,21 @@ Languages used as parts of the experiment:
 
 ## Results
 
-Using a 10m-row CSV with 10 columns
+Using a 5m-row CSV with 100 columns
 
-### Scala
+```
+==> Synchronous
+96.31s user 17.95s system 101% cpu 1:52.27 total
 
-#### Synchronous
+==> Akka Actors
+410.06s user 58.95s system 464% cpu 1:41.00 total
 
-35.01s user 26.76s system 101% cpu 1:00.62 total
+==> Scala Parallel collections
+165.46s user 46.78s system 297% cpu 1:11.30 total
 
-#### Actors
-
-622.32s user 82.93s system 428% cpu 2:44.74 total
-
-#### Parallel collections
-
-150.46s user 60.63s system 225% cpu 1:33.71 total
+==> Akka Streams
+156.59s user 76.67s system 188% cpu 2:03.98 total
+```
 
 ### Awk
 
