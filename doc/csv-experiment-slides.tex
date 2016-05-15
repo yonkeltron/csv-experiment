@@ -1,0 +1,78 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{minted}
+\usepackage{graphicx}
+
+\newcommand{\megatext}[1]{
+  \begin{center}
+    \Huge
+    #1
+  \end{center}
+}
+
+
+
+\title{An experiment in concurrent CSV processing}
+\subtitle{When are big data tools really necessary?}
+\author{Jonathan E. Magen}
+\date{Compiled \today}
+
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Who is this guy?}
+  \begin{itemize}
+  \item Computer Scientist
+  \item On the Big Data team at Cigna
+  \item Loves computers
+  \item Fascinated by concurrency
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[keepaspectratio,scale=0.7]{images/Akka_toolkit_logo.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item Futures (now in \texttt{scala.concurrent})
+      \item Actors
+      \item Streams
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[keepaspectratio,scale=0.3]{images/Akka_toolkit_logo.pdf}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Actual work done}
+
+  \inputminted{scala}{snippets/process.scala}
+
+  \begin{itemize}
+    \item Pre-splitting the row string
+    \item 2 collection traversals
+    \item $2*n$ string operations
+    \item Building a new row string
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Akka Actors}
+  \inputminted{scala}{snippets/actors.scala}
+\end{frame}
+
+\begin{frame}[fragile]{Akka Streams}
+  \inputminted{scala}{snippets/streams.scala}
+\end{frame}
+
+
+\end{document}
+
