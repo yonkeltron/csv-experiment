@@ -11,6 +11,14 @@ Languages used as parts of the experiment:
 Using a 5m-row CSV with 100 columns
 
 ```
+==> awk
+cat char_sequences.csv  0.03s user 0.48s system 0% cpu 4:20.26 total
+/usr/bin/awk -f process.awk > panda.csv  256.21s user 3.41s system 99% cpu 4:20.29 total
+
+==> gawk
+cat char_sequences.csv  0.02s user 0.46s system 0% cpu 1:46.12 total
+gawk -f process.awk > panda.csv  102.99s user 2.75s
+
 ==> Synchronous
 96.31s user 17.95s system 101% cpu 1:52.27 total
 
@@ -23,15 +31,3 @@ Using a 5m-row CSV with 100 columns
 ==> Akka Streams
 156.59s user 76.67s system 188% cpu 2:03.98 total
 ```
-
-<!-- ### Awk -->
-
-<!-- #### gawk - GNU Awk 4.1.3, API: 1.1 -->
-
-<!-- 26.24s user 0.77s system 99% cpu 27.246 total -->
-
-<!-- #### awk - awk version 20070501 -->
-
-<!-- 48.33s user 0.93s system 99% cpu 49.638 total -->
-
-

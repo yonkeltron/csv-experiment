@@ -23,11 +23,58 @@
 \begin{frame}{Who is this guy?}
   \begin{itemize}
   \item Computer Scientist
-  \item On the Big Data team at Cigna
   \item Loves computers
   \item Fascinated by concurrency
+  \item On the Big Data team at Cigna (not representing the company)
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}
+  \megatext{Big data}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[keepaspectratio,scale=2]{images/file-icon-csv.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \megatext{When do you bring in the heavy stuff?}
+\end{frame}
+
+\begin{frame}{The experiment}
+  \begin{block}{Hypothesis}
+    A concurrent, multi-threaded approach to CSV processing will yield better performance and efficiency than a synchronous, single-threaded attempt.
+  \end{block}
+
+  \begin{block}{Tools employed}
+    \begin{description}
+    \item[Ruby] to generate fake data and code
+    \item[Scala] for processing data
+    \item[Awk] for establishing benchmarks
+    \end{description}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Actual work done}
+  \megatext{\texttt{"a,b,c" -> "xax,xbx,xcx"}}
+\end{frame}
+
+
+\begin{frame}[fragile]{Actual work done}
+  \inputminted{scala}{snippets/process.scala}
+
+  \begin{itemize}
+    \item Pre-splitting the row string
+    \item 2 collection traversals
+    \item $2*n$ string operations
+    \item Building a new row string
+  \end{itemize}
+\end{frame}
+
 
 \begin{frame}
   \begin{figure}
@@ -51,18 +98,6 @@
       \end{figure}
     \end{column}
   \end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{Actual work done}
-
-  \inputminted{scala}{snippets/process.scala}
-
-  \begin{itemize}
-    \item Pre-splitting the row string
-    \item 2 collection traversals
-    \item $2*n$ string operations
-    \item Building a new row string
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Akka Actors}
