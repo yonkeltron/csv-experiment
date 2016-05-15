@@ -63,13 +63,15 @@ object Main {
   def handleWithActors(config: Config) = {
     val system = ActorSystem("csv-experiment")
     val props = Props[CsvActor]
-    val reader = CSVReader.open(config.input)
-    reader foreach { row =>
+    val linesSource = Source.fromFile(config.input).getLines()
+
+    linesSource foreach { row =>
       val name = java.util.UUID.randomUUID.toString
       val handler = system.actorOf(props, name)
       handler ! CsvLine(row)
     }
-    reader.close()
+
+    system.shutdown()
   }
 
   def handleWithParallelCollections(config: Config) = {
