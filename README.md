@@ -12,7 +12,7 @@ Using a 10m-row CSV with 10 columns
 
 ### Scala
 
-#### Syncronous
+#### Synchronous
 
 35.01s user 26.76s system 101% cpu 1:00.62 total
 
