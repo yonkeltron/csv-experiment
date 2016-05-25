@@ -24,8 +24,10 @@ fn main() {
 
     let input_path = matches.value_of("input").unwrap_or("example.csv");
 
-    println!("CSV: {}", input_path);
+    run(input_path)
+}
 
+fn run(input_path: &str) {
     let file = open_file(input_path);
 
     let reader = BufReader::new(file);
