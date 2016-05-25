@@ -33,10 +33,12 @@ fn run(input_path: &str) {
     let reader = BufReader::new(file);
 
     for line in reader.lines() {
-        match line {
-            Err(problem) => panic!("Couldn't read line: {}", problem),
-            Ok(ln) => { println!("{}", handle_line(&ln)); },
-        }
+        let ln = line.unwrap();
+        println!("{}", handle_line(&ln));
+        // match line {
+        //     Err(problem) => panic!("Couldn't read line: {}", problem),
+        //     Ok(ln) => { println!("{}", handle_line(&ln)); },
+        // }
     }
 }
 
