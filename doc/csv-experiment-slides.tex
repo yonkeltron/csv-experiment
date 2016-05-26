@@ -12,8 +12,6 @@
   \end{center}
 }
 
-
-
 \title{An experiment in concurrent CSV processing}
 \subtitle{When are big data tools really necessary?}
 \author{Jonathan E. Magen / \faicon{twitter} @yonkeltron}
@@ -56,30 +54,14 @@
     \begin{description}
     \item[Ruby] to generate fake data and code
     \item[Scala] for processing data
-    \item[Awk] for establishing benchmarks
+    \item[Rust] for native benchmarks
+    \item[Awk] just for fun
     \end{description}
   \end{block}
 \end{frame}
 
 
-\begin{frame}{Actual work done}
-  \megatext{\texttt{"a,b,c" -> "xax,xbx,xcx"}}
-\end{frame}
-
-
-\begin{frame}[fragile]{Actual work done}
-  \inputminted{scala}{snippets/process.scala}
-
-  \begin{itemize}
-    \item Pre-splitting the row string
-    \item 2 collection traversals
-    \item $2*n$ string operations
-    \item Building a new row string
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{Awk as baseline}
+\begin{frame}[fragile]{Awk just for fun}
   \begin{minted}{text}
 ==> awk
 256.21s user 3.41s system 99% cpu 4:20.29 total
@@ -89,6 +71,82 @@
   \end{minted}
 \end{frame}
 
+
+\begin{frame}{Actual work done}
+  \megatext{\texttt{"a,b,c" -> "xax,xbx,xcx"}}
+\end{frame}
+
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[keepaspectratio,scale=1.5]{images/rust.pdf}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item AOT native code generation
+      \item Managed memory
+        \begin{itemize}
+          \item RAII --- Resource Acquisition Is Initialization
+          \item Not garbage collected!
+        \end{itemize}
+      \item Functional
+      \item Object-oriented
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[keepaspectratio,scale=1]{images/rust.pdf}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Actual work done}
+  \inputminted{rust}{snippets/handle_line.rs}
+
+  \begin{itemize}
+    \item Splitting the row string
+    \item 2 collection traversals
+    \item $2n$ string operations
+    \item Building a new row string
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Establishing an AOT, native-code baseline}
+    \begin{minted}{text}
+==> Synchronous Rust
+109.98s user 9.45s system 99% cpu 2:00.50 total
+    \end{minted}
+
+    \begin{itemize}
+      \item 1.5MB of memory used
+      \item Compiled binary is 824KB
+      \item How much time is spent managing memory?
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[keepaspectratio,scale=0.5]{images/scala.pdf}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]{Single-threaded Scala}
+  \begin{minted}{text}
+==> Synchronous Scala
+96.31s user 17.95s system 101% cpu 1:52.27 total
+  \end{minted}
+\end{frame}
 
 \begin{frame}
   \megatext{Threads are terrible.}
@@ -193,6 +251,7 @@
   \megatext{Demo}
 
   \begin{itemize}
+  \item Run the Rust example as baseline
   \item Run different Scala strategies
     \begin{itemize}
     \item Synchronous
@@ -206,7 +265,10 @@
 
 \begin{frame}[fragile]{Results}
   \begin{minted}{text}
-==> Synchronous
+==> Synchronous Rust
+109.98s user 9.45s system 99% cpu 2:00.50 total
+
+==> Synchronous Scala
  96.31s user 17.95s system 101% cpu 1:52.27 total
 
 ==> Akka Actors
@@ -219,6 +281,7 @@
 165.46s user 46.78s system 297% cpu 1:11.30 total
   \end{minted}
 \end{frame}
+
 
 \begin{frame}
   \megatext{End. Thank you.}

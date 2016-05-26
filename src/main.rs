@@ -15,11 +15,11 @@ fn main() {
         .author("Jonathan E. Magen @yonkeltron")
         .about("Tests running out a CSV benchmark")
         .arg(Arg::with_name("input")
-             .short("i")
-             .long("input")
-             .value_name("FILE")
-             .help("The CSV file to be processed")
-             .takes_value(true))
+            .short("i")
+            .long("input")
+            .value_name("FILE")
+            .help("The CSV file to be processed")
+            .takes_value(true))
         .get_matches();
 
     let input_path = matches.value_of("input").unwrap_or("example.csv");
@@ -48,15 +48,14 @@ fn open_file(pathname: &str) -> File {
 
     match File::open(path) {
         Err(problem) => panic!("Couldn't open {}: {}", display, problem.description()),
-        Ok(file)     => file,
+        Ok(file) => file,
     }
 }
 
 fn handle_line(line: &str) -> String {
     let elements: Vec<&str> = line.split(",").collect::<Vec<&str>>();
 
-    elements
-        .iter()
+    elements.iter()
         .map(|element| format!("x{}", element))
         .map(|element| format!("{}x", element))
         .collect::<Vec<String>>()
