@@ -44,7 +44,7 @@ Using a 5m-row CSV with 100 columns
 
 Each strategy handles each CSV line by splitting on commas, and doing two additional traversals of the row to add an "x" character to each element. Then, it rejoins the strings with commas and prints the new line to standard out.
 
-So it maps "a,b,c" -> "xax,xbx,xcx" and so forth. As indicated above, the test CSV has 5 million rows each with 100 columns. Just random letters chosen `a-z` by the included Ruby script.
+So it maps `"a,b,c" -> "xax,xbx,xcx"` and so forth. As indicated above, the test CSV has 5 million rows each with 100 columns. Just random letters chosen `a-z` by the included Ruby script.
 
 You find the real meat here when you measure the memory usage of each approach! The Rust approach may be as slow as the Akka Streams approach but it uses *far* less memory (under 1.5mb) and confines itself to one CPU core. Actors cause a veritable memory explosion and chew CPU worse than any other strategy.
 
