@@ -18,25 +18,25 @@ Languages used as parts of the experiment:
 Using a 5m-row CSV with 100 columns
 
 ```
-==> awk
+==> awk (259.62 CPU seconds)
 256.21s user 3.41s system 99% cpu 4:20.29 total
 
-==> gawk
+==> gawk (105.74s)
 102.99s user 2.75s system 99% cpu 1:46.14 total
 
-==> Synchronous Rust
-109.98s user 9.45s system 99% cpu 2:00.50 total
+==> Synchronous Rust (114.92s)
+106.62s user 8.30s system 99% cpu 1:55.33 total
 
-==> Synchronous Scala
+==> Synchronous Scala (111.26s)
 96.31s user 17.95s system 101% cpu 1:52.27 total
 
-==> Akka Actors
+==> Akka Actors (469.01s)
 410.06s user 58.95s system 464% cpu 1:41.00 total
 
-==> Akka Streams
+==> Akka Streams (233.26)
 156.59s user 76.67s system 188% cpu 2:03.98 total
 
-==> Scala Parallel collections
+==> Scala Parallel collections (212.24s)
 165.46s user 46.78s system 297% cpu 1:11.30 total
 ```
 
