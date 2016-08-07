@@ -33,12 +33,8 @@ fn run(input_path: &str) {
     let reader = BufReader::new(file);
 
     for line in reader.lines() {
-        let ln = line.unwrap();
+        let ln = line.expect("Major error: Couldn't read line in file!");
         println!("{}", handle_line(&ln));
-        // match line {
-        //     Err(problem) => panic!("Couldn't read line: {}", problem),
-        //     Ok(ln) => { println!("{}", handle_line(&ln)); },
-        // }
     }
 }
 
