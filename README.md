@@ -24,8 +24,8 @@ Using a 5m-row CSV with 100 columns
 ==> gawk (105.74s)
 102.99s user 2.75s system 99% cpu 1:46.14 total
 
-==> Synchronous Rust (114.92s)
-106.62s user 8.30s system 99% cpu 1:55.33 total
+==> Synchronous Rust (112.46s)
+104.57s user 7.89s system 99% cpu 1:52.92 total
 
 ==> Synchronous Scala (111.26s)
 96.31s user 17.95s system 101% cpu 1:52.27 total
