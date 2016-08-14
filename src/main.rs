@@ -1,9 +1,9 @@
 
 use std::error::Error;
 use std::fs::File;
+use std::io::BufReader;
 use std::io::prelude::*;
 use std::path::Path;
-use std::io::BufReader;
 
 extern crate clap;
 
@@ -27,6 +27,7 @@ fn main() {
     run(input_path)
 }
 
+// Main loop
 fn run(input_path: &str) {
     let file = open_file(input_path);
 
@@ -38,6 +39,7 @@ fn run(input_path: &str) {
     }
 }
 
+// give me an open file
 fn open_file(pathname: &str) -> File {
     let path = Path::new(pathname);
     let display = path.display();
@@ -48,6 +50,7 @@ fn open_file(pathname: &str) -> File {
     }
 }
 
+// split, traverse, transform, and join each line
 fn handle_line(line: &str) -> String {
     let elements: Vec<&str> = line.split(",").collect::<Vec<&str>>();
 
