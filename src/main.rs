@@ -1,4 +1,3 @@
-
 use std::error::Error;
 use std::fs::File;
 use std::io::BufReader;
@@ -52,13 +51,13 @@ fn open_file(pathname: &str) -> File {
 
 // split, traverse, transform, and join each line
 fn handle_line(line: &str) -> String {
-    let elements: Vec<&str> = line.split(",").collect::<Vec<&str>>();
+    let comma = ",";
 
-    elements.iter()
+    line.split(comma)
         .map(|element| format!("x{}", element))
         .map(|element| format!("{}x", element))
         .collect::<Vec<String>>()
-        .join(",")
+        .join(comma)
 }
 
 #[cfg(test)]
