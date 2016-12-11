@@ -27,6 +27,9 @@ Using a 5m-row CSV with 100 columns
 ==> Synchronous Rust (112.46s)
 104.57s user 7.89s system 99% cpu 1:52.92 total
 
+==> Asynchronous Rust (181.99s)
+139.16s user 42.83s system 365% cpu 49.821 total
+
 ==> Synchronous Scala (111.26s)
 96.31s user 17.95s system 101% cpu 1:52.27 total
 
@@ -56,4 +59,4 @@ You find the real meat here when you measure the memory usage of each approach! 
 
 * The Scala approach using parallel collections actually seem like an efficient one but it relies on loading the entire file into memory. If you have the memory to spare for loading large CSVs (in real life, some of these can exceed many gigabytes in size), good for you!
 
-* I don't understand why Rust doesn't blow these benchmarks out of the water. Does the JIT in the JVM really outperform the Rust compiler to that degree? Does the Rust binary (which has no runtime) spend too much time with memory book keeping?
+* Rust does a darn good job, whether sync or async.
