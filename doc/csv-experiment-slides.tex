@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=169,14pt]{beamer}
 
 \usepackage{fontawesome}
 \usepackage{graphicx}
@@ -11,6 +11,14 @@
     #1
   \end{center}
 }
+
+\newcommand{\bigtext}[1]{
+  \begin{center}
+    \Large
+    #1
+  \end{center}
+}
+
 
 \title{An experiment in performant CSV processing}
 \subtitle{When is concurrency really necessary?}
@@ -26,7 +34,7 @@
   \item Computer Scientist
   \item Loves computers
   \item Fascinated by concurrency
-  \item On the Big Data team at Cigna (not representing the company)
+  \item Principal Technologist at Cigna (not representing the company)
   \end{itemize}
 \end{frame}
 
@@ -68,7 +76,7 @@
 
 
 \begin{frame}{Actual work done}
-  \megatext{\texttt{"a,b,c" -> "xax,xbx,xcx"}}
+  \bigtext{\texttt{"a,b,c" -> "xax,xbx,xcx"}}
 \end{frame}
 
 
@@ -82,63 +90,9 @@
   \end{minted}
 \end{frame}
 
-
 \begin{frame}
-  \begin{figure}
-    \includegraphics[keepaspectratio,scale=1.5]{images/rust.pdf}
-  \end{figure}
+  \megatext{Substance time!}
 \end{frame}
-
-
-\begin{frame}{Rust}
-  \begin{columns}[c]
-    \begin{column}{0.6\textwidth}
-      \begin{itemize}
-      \item AOT native code generation
-      \item Managed memory
-        \begin{itemize}
-          \item RAII --- Resource Acquisition Is Initialization
-          \item Not garbage collected!
-        \end{itemize}
-      \item Functional
-      \item Object-oriented
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{0.4\textwidth}
-      \begin{figure}
-        \includegraphics[keepaspectratio,scale=1]{images/rust.pdf}
-      \end{figure}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-
-\begin{frame}[fragile]{Actual work done}
-  \inputminted{rust}{snippets/handle_line.rs}
-
-  \begin{itemize}
-    \item Splitting the row string
-    \item 2 collection traversals
-    \item $2n$ string operations
-    \item Building a new row string
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{Establishing an AOT, native-code baseline}
-  \begin{minted}{text}
-==> Synchronous Rust (112.46s)
-104.57s user 7.89s system 99% cpu 1:52.92 total
-    \end{minted}
-
-    \begin{itemize}
-      \item 1.5MB of memory used
-      \item Compiled binary is 824KB
-      \item How much time is spent managing memory?
-    \end{itemize}
-\end{frame}
-
 
 \begin{frame}
   \begin{figure}
@@ -282,6 +236,70 @@
   \inputminted{scala}{snippets/pcoll.scala}
 \end{frame}
 
+
+\begin{frame}
+  \begin{figure}
+    \includegraphics[keepaspectratio,scale=1.5]{images/rust.pdf}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Rust}
+  \begin{columns}[c]
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+      \item AOT native code generation
+      \item Managed memory
+        \begin{itemize}
+          \item RAII --- Resource Acquisition Is Initialization
+          \item Not garbage collected!
+        \end{itemize}
+      \item Functional
+      \item Object-oriented
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.4\textwidth}
+      \begin{figure}
+        \includegraphics[keepaspectratio,scale=1]{images/rust.pdf}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Actual work done}
+  \inputminted{rust}{snippets/handle_line.rs}
+\end{frame}
+
+
+\begin{frame}[fragile]{Establishing an AOT, native-code baseline}
+  \begin{minted}{text}
+==> Synchronous Rust (112.46s)
+104.57s user 7.89s system 99% cpu 1:52.92 total
+    \end{minted}
+
+    \begin{itemize}
+      \item 1.5MB of memory used
+      \item Compiled binary is 1.1MB
+      \item Single-threaded
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Establishing an AOT, native-code baseline}
+  \begin{minted}{text}
+==> Concurrent Rust (181.99s)
+139.16s user 42.83s system 365% cpu 49.821 total
+  \end{minted}
+
+  \begin{itemize}
+    \item 1.8GB of memory used
+    \item N threads for N cores (N = 4)
+  \end{itemize}
+\end{frame}
+
+
 \begin{frame}
   \megatext{Demo}
 
@@ -299,9 +317,13 @@
 \end{frame}
 
 \begin{frame}[fragile]{Results}
+  \small
   \begin{minted}{text}
-==> Synchronous Rust (112.46 CPU seconds)
-104.57s user 7.89s system 99% cpu 1:52.92 total
+==> Synchronous Rust (108.06s)
+99.54s user 8.52s system 99% cpu 1:48.48 total
+
+==> Concurrent Rust (181.99s)
+139.16s user 42.83s system 365% cpu 49.821 total
 
 ==> Synchronous Scala (111.26s)
 96.31s user 17.95s system 101% cpu 1:52.27 total

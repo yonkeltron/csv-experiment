@@ -24,10 +24,10 @@ Using a 5m-row CSV with 100 columns
 ==> gawk (105.74s)
 102.99s user 2.75s system 99% cpu 1:46.14 total
 
-==> Synchronous Rust (112.46s)
-104.57s user 7.89s system 99% cpu 1:52.92 total
+==> Synchronous Rust (108.06s)
+99.54s user 8.52s system 99% cpu 1:48.48 total
 
-==> Asynchronous Rust (181.99s)
+==> Concurrent Rust (181.99s)
 139.16s user 42.83s system 365% cpu 49.821 total
 
 ==> Synchronous Scala (111.26s)
