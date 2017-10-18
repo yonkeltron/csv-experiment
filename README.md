@@ -41,6 +41,9 @@ Using a 5m-row CSV with 100 columns
 
 ==> Scala Parallel collections (212.24s)
 165.46s user 46.78s system 297% cpu 1:11.30 total
+
+==> Synchronous Elixir (361.01s)
+323.70s user 37.31s system 132% cpu 4:31.70 total
 ```
 
 ### Discussion
