@@ -19,7 +19,7 @@ defmodule Csv do
     end
   end
 
-  @spec do_async(String.t()) :: [atom()]
+  @spec do_async(String.t()) :: :ok
   defp do_async(filename) do
     filename
     |> make_stream()
@@ -30,7 +30,7 @@ defmodule Csv do
     |> Enum.each(fn {:ok, line} -> IO.puts(line) end)
   end
 
-  @spec do_flow(String.t()) :: [atom()]
+  @spec do_flow(String.t()) :: :ok
   defp do_flow(filename) do
     filename
     |> make_stream()
@@ -40,7 +40,7 @@ defmodule Csv do
     |> Enum.each(& IO.puts/1)
   end
 
-  @spec do_sync(String.t()) :: [atom()]
+  @spec do_sync(String.t()) :: :ok
   defp do_sync(filename) do
     filename
     |> make_stream()
@@ -49,13 +49,13 @@ defmodule Csv do
     |> Enum.each(& IO.puts/1)
   end
 
-  @spec handle_line(String.t()) :: String.t()
+  @spec handle_line(String.t()) :: iolist()
   defp handle_line(line) do
     line
     |> String.split(",")
     |> Enum.map(& "x#{&1}")
     |> Enum.map(& "#{&1}x")
-    |> Enum.join(",")
+    |> Enum.intersperse(",")
   end
 
   @spec parse_options([String.t()]) :: {atom(), list()}
