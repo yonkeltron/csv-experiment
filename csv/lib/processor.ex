@@ -45,6 +45,6 @@ defmodule Csv.Processor do
 
   @spec make_stream(String.t()) :: File.Stream.t()
   defp make_stream(filename) do
-    filename |> File.stream!(read_ahead: 100_000)
+    filename |> File.stream!(read_ahead: 128_000)
   end
 end
