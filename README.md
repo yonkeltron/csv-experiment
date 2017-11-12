@@ -33,9 +33,6 @@ Using a 5m-row CSV with 100 columns
 ==> Synchronous Scala (111.26s)
 96.31s user 17.95s system 101% cpu 1:52.27 total
 
-==> Akka Actors (469.01s)
-410.06s user 58.95s system 464% cpu 1:41.00 total
-
 ==> Akka Streams (233.26)
 156.59s user 76.67s system 188% cpu 2:03.98 total
 
