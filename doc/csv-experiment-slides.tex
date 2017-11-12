@@ -56,6 +56,11 @@
 \end{frame}
 
 \begin{frame}
+  \megatext{I was never a Big Data guy.}
+  \bigtext{Instead: Distributed systems}
+\end{frame}
+
+\begin{frame}
   \megatext{When do you bring in the heavy stuff?}
 \end{frame}
 
@@ -174,7 +179,7 @@
   \begin{figure}
     \begin{tikzpicture}
       \node[draw, circle] (one) at (0,0) { $A_0$ };
-      \node[draw, circle] (two) at (3,0) { $A_1$ };
+      \node[draw, circle] (two) at (4,0) { $A_1$ };
 
       \draw[->, thick] (one) -- node[above] { $m_0,m_1,m_2$ } (two);
     \end{tikzpicture}
@@ -334,6 +339,15 @@
 ==> Scala Parallel collections (212.24s)
 165.46s user 46.78s system 297% cpu 1:11.30 total
   \end{minted}
+\end{frame}
+
+
+\begin{frame}{Test system specs}
+  \begin{description}
+  \item[CPU] Quad-core 2.3 GHz Intel Core i7
+  \item[RAM] 16 GB 1600 MHz DDR3
+  \item[HDD] 250 GB SSD
+  \end{description}
 \end{frame}
 
 
