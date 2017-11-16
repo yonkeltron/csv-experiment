@@ -20,8 +20,8 @@
 }
 
 
-\title{An experiment in performant CSV processing}
-\subtitle{When is concurrency really necessary?}
+\title{Polyglot CSV Processing}
+\subtitle{A not-so-grand experiment}
 \author{Jonathan E. Magen / \faicon{twitter} @yonkeltron}
 \date{Compiled \today}
 
@@ -38,6 +38,13 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \megatext{\texttt{yonkeltron} on IRC}
+\end{frame}
+
+\begin{frame}{Making tracks}
+  \bigtext{PHL $\rightarrow$ WA $\rightarrow$ CT $\rightarrow$ NYC $\rightarrow$ PHL}
+\end{frame}
 
 \begin{frame}
   \megatext{Big data}
@@ -64,6 +71,15 @@
   \megatext{When do you bring in the heavy stuff?}
 \end{frame}
 
+\begin{frame}
+  \bigtext{Scalability! But at what COST?}
+  \begin{center}
+    \url{http://www.frankmcsherry.org/assets/COST.pdf}
+  \end{center}
+
+  \bigtext{COST:\\Configuration Outperforming a Single Thread}
+\end{frame}
+
 \begin{frame}{The experiment}
   \begin{block}{Hypothesis}
     A concurrent, multi-threaded approach to CSV processing will yield better performance and efficiency than a synchronous, single-threaded attempt.
@@ -84,6 +100,9 @@
   \bigtext{\texttt{"a,b,c" -> "xax,xbx,xcx"}}
 \end{frame}
 
+\begin{frame}{How large a CSV file?}
+  \megatext{5 million rows,\\100 columns wide}
+\end{frame}
 
 \begin{frame}[fragile]{Awk just for fun}
   \begin{minted}{text}
@@ -205,7 +224,6 @@
   \end{figure}
 \end{frame}
 
-
 \begin{frame}
   \begin{columns}[c]
     \begin{column}{0.5\textwidth}
@@ -229,13 +247,19 @@
   \inputminted{scala}{snippets/actor.scala}
 \end{frame}
 
-%% \begin{frame}[fragile]{Akka Actors}
-%%   \inputminted{scala}{snippets/actors.scala}
-%% \end{frame}
+
+\begin{frame}
+  \bigtext{The trouble with an actor per line...}
+\end{frame}
+
+\begin{frame}
+  \megatext{Messaging overhead adds up!}
+\end{frame}
 
 \begin{frame}[fragile]{Akka Streams}
   \inputminted{scala}{snippets/streams.scala}
 \end{frame}
+
 
 \begin{frame}[fragile]{Scala Parallel Collections}
   \inputminted{scala}{snippets/pcoll.scala}
@@ -353,6 +377,15 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}[fragile]{Fun fact: gawk beats Rust}
+  \begin{minted}{text}
+==> gawk (105.74s)
+102.99s user 2.75s system 99% cpu 1:46.14 total
+
+==> Synchronous Rust (108.06s)
+99.54s user 8.52s system 99% cpu 1:48.48 total
+  \end{minted}
+\end{frame}
 
 \begin{frame}{Test system specs}
   \begin{description}
@@ -362,6 +395,19 @@
   \end{description}
 \end{frame}
 
+\begin{frame}{Further work}
+  \begin{itemize}
+  \item More languages
+    \begin{itemize}
+    \item Elixir
+    \item OCaml
+    \end{itemize}
+  \item Package up experiment to run in the cloud
+    \begin{itemize}
+    \item Terraform + Docker
+    \end{itemize}
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
   \megatext{End. Thank you.}
